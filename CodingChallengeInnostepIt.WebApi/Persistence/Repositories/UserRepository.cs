@@ -45,6 +45,9 @@ public class UserRepository : BaseRepository<UserEntity>, IUserRepository
             .Set(user => user.SureName, updateUser.SureName)
             .Set(user => user.BirthDate, updateUser.BirthDate);
 
-        return await Collection.FindOneAndUpdateAsync(filter, update);
+        return await Collection.FindOneAndUpdateAsync(
+            filter,
+            update,
+            new FindOneAndUpdateOptions<UserEntity> { ReturnDocument = ReturnDocument.After });
     }
 }
